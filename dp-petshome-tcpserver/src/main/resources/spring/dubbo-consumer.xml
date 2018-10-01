@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+       					http://code.alibabatech.com/schema/dubbo 
+       					http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="tcp-consumer" />
+	
+	<!-- 
+		check：关闭注册中心启动时检查 (注册订阅失败时报错)
+	 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" client="zkclient" check="false" />
+	
+	<!-- 
+		init：是否立即生成动态代理
+		check：关闭某个服务的启动时检查 (没有提供者时报错)
+	 -->
+	<dubbo:reference id="dubboDemoService"
+		interface="com.dp.petshome.service.DubboDemoService" init="false" check="false" />
+	
+	<!-- 
+		check：关闭所有服务的启动时检查 (没有提供者时报错)
+	 -->
+	<dubbo:consumer check="false" />
+</beans>
